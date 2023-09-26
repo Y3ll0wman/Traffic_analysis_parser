@@ -1,17 +1,24 @@
-class TrafficParser:
-    @staticmethod
-    def unique_nodes_in_the_network():
-        """Выводит сколько уникальных узлов в наблюдаемой сети"""
-        unique_nodes = set()
+class TrafficParser():
+    def __init__(self):
         with open("traf.txt", "r") as traffic_dump:
             for line in traffic_dump:
-                fields = line.strip().split(";")
+                self.fields = line.strip().split(";")
 
-            source_ip_port, source_mac, dest_ip_port, dest_mac, is_udp, data_size, time = fields[:7]
+    def unique_nodes_in_the_network(self):
+        """Выводит сколько уникальных узлов в наблюдаемой сети"""
+        unique_nodes = set()
 
-            unique_nodes.add(source_ip_port)
-            unique_nodes.add(dest_ip_port)
+        source_ip_port, source_mac, dest_ip_port, dest_mac, is_udp, data_size, time = self.fields[:7]
 
-        print(f"Количество уникальных узлов в наблюдаемой сети: {len(unique_nodes)}")
+        unique_nodes.add(source_ip_port)
+        unique_nodes.add(dest_ip_port)
 
-TrafficParser.unique_nodes_in_the_network()
+        return f"Количество уникальных узлов в наблюдаемой сети: {len(unique_nodes)}"
+
+    def average_data_rate(self):
+        pass
+
+
+parser = TrafficParser()
+unique_nodes_result = parser.unique_nodes_in_the_network()
+print(f"_______________________________________________________________________________________\n{unique_nodes_result}")
