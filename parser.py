@@ -16,16 +16,18 @@ class TrafficParser:
             for line in traffic_dump:
                 # Разбиваем строку на поля, используя символ ';'
                 fields = line.strip().split(";")
+
+                # Признак того, какой протокол используется
                 is_udp = fields[4]
 
                 # Извлекаем размер переданных данных и время передачи
                 data_size = int(fields[5])
                 time = float(fields[6])
 
-            # Извлекаем IP адреса и MAC адреса отправителя и получателя
+            # Извлекаем IP адреса отправителя и получателя
             source_ip_port, dest_ip_port = fields[0], fields[2]
 
-            # Добавляем IP адреса и MAC адреса отправителя и получателя в множество
+            # Добавляем IP адреса отправителя и получателя в множество
             self.unique_nodes.add(source_ip_port)
             self.unique_nodes.add(dest_ip_port)
 
